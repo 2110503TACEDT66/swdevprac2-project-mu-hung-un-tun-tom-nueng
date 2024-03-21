@@ -1,4 +1,4 @@
-import SessionItem from './sessionItem';
+import SessionItem from './SessionItem';
 
 export default function SessionPanel() {
   return (

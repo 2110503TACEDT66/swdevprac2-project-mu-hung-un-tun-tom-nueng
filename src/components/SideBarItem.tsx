@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 export default function SideBarItem() {
-  const name = 'First-name Last-name',
+  const name = 'John Doe',
     tel = '0811111111',
     email = 'user@gmail.com';
 

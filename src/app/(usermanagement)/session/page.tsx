@@ -1,5 +1,5 @@
-import SessionPanel from '@/components/sessionPanel';
-import SideBar from '@/components/sideBar';
+import SessionPanel from '@/components/SessionPanel';
+import SideBar from '@/components/SideBar';
 
 export default function Session() {
   return (

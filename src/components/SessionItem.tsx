@@ -11,7 +11,7 @@ export default function SessionItem({
         <div className="text-2xl font-bold">{companyName}</div>
         <div>{date}</div>
       </div>
-      <button className="self-end rounded-2xl bg-blue1 px-10 py-2 text-white">
+      <button className="self-end rounded-3xl bg-blue1 px-10 py-2 text-white">
         Edit
       </button>
     </div>
