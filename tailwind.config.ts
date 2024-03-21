@@ -19,9 +19,6 @@ const config: Config = {
         blue3: '#67C6E3',
         blue4: '#DFF5FF',
       },
-      fontFamily: {
-        raleway: ['Raleway', 'sans-serif'],
-      },
     },
   },
   plugins: [],
