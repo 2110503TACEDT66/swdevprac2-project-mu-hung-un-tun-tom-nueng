@@ -13,7 +13,7 @@ const TopMenu = () => {
         <div className="jusitfy-center flex">
           <TopMenuItem title="Home" pageRef="/" />
           <TopMenuItem title="About us" pageRef="/about" />
-          <TopMenuItem title="Company" pageRef="/contact" />
+          <TopMenuItem title="Company" pageRef="/company" />
           <TopMenuItem title="Session" pageRef="/session" />
         </div>
         <div className="text-bold mb-auto mt-auto flex space-x-5 text-white">
