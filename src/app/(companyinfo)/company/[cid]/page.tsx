@@ -1,7 +1,10 @@
 import Image from "next/image"
 import getCompany from "@/libs/getCompany"
+import Link from "next/link"
 
 export default async function CompanyDetailPage( {params} : {params: {cid:string}} ) {
+
+
 
     //const companyDetail = await getCompany(params.cid)
     const companyDetail = {
@@ -22,7 +25,7 @@ export default async function CompanyDetailPage( {params} : {params: {cid:string
                 <Image src={companyDetail.data.picture} 
                     alt="Company Image" 
                     width={0} height={0} sizes="100vw" 
-                    className="rounded-lg w-[30%]"
+                    className="w-[30%] h-fit"
                 />
                 <div className="mx-32 text-left">
                     <div className="font-medium text-[18px] mb-2">
@@ -49,9 +52,11 @@ export default async function CompanyDetailPage( {params} : {params: {cid:string
                     <div className="text-md mx-8 mb-12">
                         {companyDetail.data.tel} 
                     </div>
-                    <button className="inline w-[300%] h-[3em] rounded-3xl bg-indigo-600 hover:bg-indigo-800 px-3 py-2 text-white shadow-sm" name="createSession" id="createSession" value="Create Session">
-                        Create Session
-                    </button>
+                    <Link href={`/company/${params.cid}/booking`}>
+                        <button className="inline w-[40vw] h-[3em] rounded-3xl bg-indigo-600 hover:bg-indigo-800 px-3 py-2 text-white shadow-sm" name="createSession" id="createSession" value="Create Session">
+                            Create Session
+                        </button>
+                    </Link>
                 </div>
             </div>
         </main>

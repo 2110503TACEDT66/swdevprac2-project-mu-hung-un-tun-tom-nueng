@@ -1,4 +1,4 @@
-import BookingMenu from "@/components/BookingMenu"
+// import BookingMenu from "@/components/BookingMenu"
 
 export default function BookingLayout({
     children,
