@@ -10,7 +10,7 @@ const Banner = () => {
 
   return (
     <div className="relative flex h-[80vh] w-full flex-col py-5">
-      <div className="mx-[4vh] my-[8vh] flex flex-row">
+      <div className="mx-[4vh] my-[8vh] flex flex-row flex-wrap space-y-10">
         <div className="flex flex-col space-y-[6vh]">
           <div className="space-y-[1.5vh] text-6xl font-bold drop-shadow-lg">
             <h1>Your Career</h1>
@@ -34,7 +34,7 @@ const Banner = () => {
           width={0}
           height={0}
           sizes="100vw"
-          className="ml-auto h-[40vh] w-auto min-w-[40vh] max-w-[100vh] rounded-3xl object-cover"
+          className="ml-auto flex h-[40vh] w-auto min-w-[40vh] max-w-[100vh] rounded-3xl object-cover"
         />
       </div>
 
