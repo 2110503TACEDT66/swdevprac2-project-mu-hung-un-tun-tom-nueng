@@ -3,16 +3,21 @@ import SideBarProfile from './SideBarProfile';
 import { useRouter } from 'next/navigation';
 import SideBarItem from './SideBarItem';
 
-export default function SideBar() {
+export default function SideBar({ role }: { role: boolean }) {
   const router = useRouter();
-
   return (
     <div
       className="fixed left-0 top-0 flex h-full h-screen 
       w-72 flex-col items-center bg-white px-3 py-20 shadow-lg"
     >
       <div className="absolute top-56">
-        <SideBarItem />
+        <SideBarItem route="Session" />
+        {role && ( // Using a logical AND operator to conditionally render if 'role' is true
+          <div>
+            <SideBarItem route="Company" />
+          </div>
+        )}
+        <SideBarItem route="Profile" />
       </div>
       <div className="absolute bottom-10 flex flex-col">
         <SideBarProfile />
