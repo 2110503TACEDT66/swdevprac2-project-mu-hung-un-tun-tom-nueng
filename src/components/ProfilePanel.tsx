@@ -12,7 +12,9 @@ export default function ProfilePanel() {
           height={100}
           sizes="100vh"
         ></Image>
-        <div className="underline hover:text-blue1">Select photo</div>
+        <div className="font-semibold hover:text-blue1 hover:underline ">
+          Select photo
+        </div>
 
         <form className="mt-5">
           <div className="mb-3 grid gap-3 md:grid-cols-2">
@@ -115,13 +117,15 @@ export default function ProfilePanel() {
               </div>
             </label>
           </div>
-
-          <button
-            type="submit"
-            className="w-full rounded-3xl bg-blue-200 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue1 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            Submit
-          </button>
+          <div className="mb-6 flex items-start">
+            <button
+              type="submit"
+              className="w-full rounded-3xl bg-blue-200 px-5 py-2.5 text-center 
+            text-sm font-medium text-white hover:bg-blue1"
+            >
+              Submit
+            </button>
+          </div>
         </form>
       </div>
     </div>
