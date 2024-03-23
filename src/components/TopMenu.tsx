@@ -1,4 +1,4 @@
-import { authOptions } from '@/app/auth/[...nextauth]/route';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import TopMenuItem from './TopMenuItem';
 import Image from 'next/image';
 import Link from 'next/link';

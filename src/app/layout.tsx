@@ -2,8 +2,8 @@ import './globals.css';
 import TopMenu from '@/components/TopMenu';
 import NextAuthProvider from '@/providers/NextAuthProvider';
 import { getServerSession } from 'next-auth';
+import { authOptions } from './api/auth/[...nextauth]/route';
 import { Raleway } from 'next/font/google';
-import { authOptions } from './auth/[...nextauth]/route';
 
 const raleway = Raleway({
   weight: ['400', '500', '600', '700'],
