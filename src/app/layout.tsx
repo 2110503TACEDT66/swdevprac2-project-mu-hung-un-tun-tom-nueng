@@ -1,5 +1,7 @@
 import './globals.css';
 import TopMenu from '@/components/TopMenu';
+import NextAuthProvider from '@/providers/NextAuthProvider';
+import { getServerSession } from 'next-auth';
 import { Raleway } from 'next/font/google';
 
 const raleway = Raleway({
@@ -13,11 +15,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = getServerSession();
+
   return (
     <html lang="en" className="{raleway.className}">
       <body>
-        <TopMenu />
-        {children}
+        <NextAuthProvider session={session}>
+          <TopMenu />
+          {children}
+        </NextAuthProvider>
       </body>
     </html>
   );
