@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import SideBarItem from './SideBarItem';
 
 export default function ProfilePanel() {
   return (
