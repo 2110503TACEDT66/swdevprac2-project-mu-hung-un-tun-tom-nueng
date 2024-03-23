@@ -4,9 +4,9 @@ import Image from 'next/image'
 import InteractiveCard from './InteractiveCard';
 import React from 'react';
 
-export default function Card ( { companyName, imgSrc, onRating } : { companyName: string, imgSrc: string, onRating?:Function }) {
+export default function Card ( { companyName, imgSrc } : { companyName: string, imgSrc: string }) {
 
-    const [value, setValue] = React.useState<number | null>(5);
+    // const [value, setValue] = React.useState<number | null>(5);
 
     return (
         <InteractiveCard contentName={ companyName }>

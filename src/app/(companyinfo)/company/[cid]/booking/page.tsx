@@ -1,31 +1,35 @@
 import DateReserve from "@/components/DateReserve"
-// import { TextField } from "@mui/material"
-// import { authOptions } from "../api/auth/[...nextauth]/route"
-// import { getServerSession } from "next-auth"
-// import getUserProfile from "@/libs/getUserProfile"
-// import getCompany from "@/libs/getCompany"
+import { TextField } from "@mui/material"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/app/auth/[...nextauth]/route"
+import getUserProfile from "@/libs/getUserProfile"
+import getCompany from "@/libs/getCompany"
 import Image from "next/image"
+import { redirect } from "next/navigation"
 
 export default async function Booking( {params} : {params: {cid:string}} ) {
 
-    // const companyDetail = await getCompany(params.cid)
+    const companyDetail = await getCompany(params.cid)
 
-    const companyDetail = {
-        data: {
-            name: "ABC",
-            desc: "bla bla bla",
-            picture: "/img/about1.png",
-            website: "https://abc.com",
-            address: "123",
-            tel: "0812345678"
-        }
-    }
+    const session = await getServerSession(authOptions)
+    if(!session || !session.user.token) {
+        alert("Please Login")
+        redirect('/auth/login')
+    } 
 
-    // const session = await getServerSession(authOptions)
-    // if(!session || !session.user.token) return null
+    const profile = await getUserProfile(session.user.token)
+    var createdAt = new Date(profile.data.createdAt);
 
-    // const profile = await getUserProfile(session.user.token)
-    // var createdAt = new Date(profile.data.createdAt);
+    // const companyDetail = {
+    //     data: {
+    //         name: "ABC",
+    //         desc: "bla bla bla",
+    //         picture: "/img/about1.png",
+    //         website: "https://abc.com",
+    //         address: "123",
+    //         tel: "0812345678"
+    //     }
+    // }
 
     return (
         <main className="my-28 mx-20 p-14 border rounded-3xl shadow-inner">
@@ -44,7 +48,7 @@ export default async function Booking( {params} : {params: {cid:string}} ) {
                     </div>
 
                     <button className="inline mt-2 w-[40vw] h-[3em] rounded-3xl bg-indigo-600 hover:bg-indigo-800 px-3 py-2 text-white shadow-sm" name="bookvaccine" id="bookvaccine" value="Book Vaccine">
-                        Confirrm
+                        Confirm
                     </button>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 export default async function getCompany(id:string) {
-    // Don't forget to change URL
-    const response = await fetch(`https://vaccine-app-backend.vercel.app/api/v1/hospitals/${id}`)
+    
+    const response = await fetch(`https://job-fair-frontend-but-backend.vercel.app/company/${id}`)
     if(!response.ok) {
         throw new Error("Failed to fetch company")
     }

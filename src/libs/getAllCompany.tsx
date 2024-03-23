@@ -1,8 +1,7 @@
 export default async function getAllCompany() {
 
     await new Promise((resolve)=>setTimeout(resolve, 1000))
-    // Don't forget to change URL
-    const response = await fetch("https://vaccine-app-backend.vercel.app/api/v1/hospitals")
+    const response = await fetch("https://job-fair-frontend-but-backend.vercel.app/company")
     if(!response.ok) {
         throw new Error("Failed to fetch all company")
     }

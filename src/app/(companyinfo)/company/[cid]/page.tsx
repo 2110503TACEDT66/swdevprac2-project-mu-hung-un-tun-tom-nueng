@@ -4,19 +4,17 @@ import Link from "next/link"
 
 export default async function CompanyDetailPage( {params} : {params: {cid:string}} ) {
 
-
-
-    //const companyDetail = await getCompany(params.cid)
-    const companyDetail = {
-        data: {
-            name: "ABC",
-            desc: "bla bla bla",
-            picture: "/img/about1.png",
-            website: "https://abc.com",
-            address: "123",
-            tel: "0812345678"
-        }
-    }
+    const companyDetail = await getCompany(params.cid)
+    // const companyDetail = {
+    //     data: {
+    //         name: "ABC",
+    //         desc: "bla bla bla",
+    //         picture: "/img/about1.png",
+    //         website: "https://abc.com",
+    //         address: "123",
+    //         tel: "0812345678"
+    //     }
+    // }
 
     return (
         <main className="my-28 mx-20 p-14 border rounded-3xl shadow-inner">
