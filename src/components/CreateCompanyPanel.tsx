@@ -1,5 +1,5 @@
 import Company from '@/db/models/Company';
-import { dbConnect } from '@db/dbConnect';
+import { dbConnect } from '@/db/dbConnect';
 import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 

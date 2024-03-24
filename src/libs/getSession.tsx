@@ -8,7 +8,6 @@ export default async function getSession(token: string) {
       },
     }
   );
-
   if (!response.ok) {
     throw new Error('Cannot get sessions');
   }

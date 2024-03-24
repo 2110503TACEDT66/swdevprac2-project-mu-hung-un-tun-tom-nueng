@@ -1,9 +1,5 @@
-'use client';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { getServerSession } from 'next-auth';
-import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
-import getSession from '@/libs/getSession';
 import getUserProfile from '@/libs/getUserProfile';
 import SessionItem from './SessionItem';
 import Link from 'next/link';
@@ -13,7 +9,6 @@ export default async function SessionPanel({
 }: {
   sessionsJson: Promise<SessionJson>;
 }) {
-  const router = useRouter();
   const SessionJson = await sessionsJson;
 
   const session = await getServerSession(authOptions);
@@ -26,15 +21,13 @@ export default async function SessionPanel({
         <div className="p-5 text-5xl">Session</div>
         {profile.data.role == 'admin' ? (
           <div>
-            <button
+            <Link
               className="self-end rounded-3xl border-2 border-blue1 px-10 py-2 font-semibold text-blue1 
                               hover:shadow-[inset_-3px_-3px_0_0_rgba(71,100,247,0.2)]"
-              onClick={(e) => {
-                router.push(`/session/create`);
-              }}
+              href="/company"
             >
               Create new session
-            </button>
+            </Link>
           </div>
         ) : null}
       </div>

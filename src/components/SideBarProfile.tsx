@@ -1,7 +1,5 @@
-'use client';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { getServerSession } from 'next-auth';
-import Link from 'next/link';
 import Image from 'next/image';
 import getUserProfile from '@/libs/getUserProfile';
 
@@ -13,7 +11,7 @@ export default async function SideBarProfile() {
   return (
     <div className="flex flex-col items-start items-center py-5">
       <Image
-        src={profile.data.profile}
+        src={profile.data.profile ? profile.data.profile : '/img/user.png'}
         alt="logo"
         width={100}
         height={100}
