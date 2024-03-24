@@ -4,36 +4,11 @@ import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 export default function CreateCompanyForm() {
-  const addCompany = async (addCompanyForm: FormData) => {
-    'use server';
-    const picture = addCompanyForm.get('picture');
-    const name = addCompanyForm.get('name');
-    const address = addCompanyForm.get('address');
-    const website = addCompanyForm.get('website');
-    const desc = addCompanyForm.get('desc');
-    const tel = addCompanyForm.get('tel');
-
-    try {
-      await dbConnect();
-      const company = await Company.create({
-        //"picture": picture,
-        name: name,
-        address: address,
-        website: website,
-        desc: desc,
-        tel: tel,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-    revalidateTag('company');
-    redirect('/company');
-  };
   return (
     <div className="z-50 space-y-2 p-20 sm:ml-72">
-      <div className="mb-5 border-b-2 p-5 text-5xl">Edit Profile</div>
+      <div className="mb-5 border-b-2 p-5 text-5xl">Create Company</div>
       <div className="flex h-full flex-col items-center bg-white px-3">
-        <form className="mt-5" action={addCompany}>
+        <form className="mt-5">
           <div className="mb-3">
             <label
               className="mb-2 block text-sm font-medium text-gray-900"
