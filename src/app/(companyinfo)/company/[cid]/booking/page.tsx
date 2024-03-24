@@ -1,6 +1,6 @@
 'use client';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import { useState } from 'react';
+import { FormEvent, FormEventHandler, useState } from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
@@ -12,8 +12,22 @@ import getCompany from '@/libs/getCompany';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import createCompany from '@/libs/createCompany';
+
+type FormDataSession = {
+  user: string;
+  company: string;
+  date: string;
+};
 
 export default async function Booking({ params }: { params: { cid: string } }) {
+  const [dateTime, setDateTime] = useState(dayjs('2022-05-10T15:30'));
+  const [formData, setFormData] = useState<FormDataSession>({
+    user: '',
+    company: '',
+    date: '',
+  });
+
   const { data: session } = useSession();
 
   // const session = await getServerSession(authOptions);
@@ -24,40 +38,64 @@ export default async function Booking({ params }: { params: { cid: string } }) {
   const companyDetail = await getCompany(session.user.token, params.cid);
 
   const profile = await getUserProfile(session.user.token);
-  // var createdAt = new Date(profile.data.createdAt);
-  var user = profile;
 
-  //const [email, setEmail] = useState(null);
-  // const [dateTime, setDateTime] = useState(dayjs('2022-05-10T15:30'));
+  //var dateTime = dayjs('2022-05-10T15:30');
+
   // const [dateTime, setDateTime] = useState(null);
-  var dateTime = dayjs('2022-05-10T15:30');
+  // var dateTime = dayjs('2022-05-10T15:30');
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    let formData = new FormData();
-    // const userId = await fetch("https://job-fair-frontend-but-backend.vercel.app/", {
-    //   method: "GET",
-    //   body: formData,
-    // });
-    formData.append('company', companyDetail.data._id.toJSON());
-    formData.append('user', profile.data._id.toJSON());
-    formData.append('date', dateTime.toJSON());
-    const response = await fetch(
-      'https://job-fair-frontend-but-backend.vercel.app/sessions',
-      {
-        method: 'POST',
-        body: formData,
+  // const handleInputChange = (event: any) => {
+  //   // const { name, value } = event.target;
+  //   // setFormData({ ...formData, [name]: value });
+  //   setDateTime(event.target.newValue);
+  // };
+
+  // const handleSubmit = async (e: any) => {
+  //   e.preventDefault();
+  //   let formData = new FormData();
+  //   // const userId = await fetch("https://job-fair-frontend-but-backend.vercel.app/", {
+  //   //   method: "GET",
+  //   //   body: formData,
+  //   // });
+  //   formData.append('company', companyDetail.data._id.toJSON());
+  //   formData.append('user', profile.data._id.toJSON());
+  //   formData.append('date', dateTime.toJSON());
+  //   const response = await fetch(
+  //     'https://job-fair-frontend-but-backend.vercel.app/sessions',
+  //     {
+  //       method: 'POST',
+  //       body: formData,
+  //     }
+  //   )
+  //     .then(function (response) {
+  //       return response.json();
+  //     })
+  //     .then(function (result) {
+  //       alert(result);
+  //     })
+  //     .catch(function (error) {
+  //       console.log('Request failed', error);
+  //     });
+  // };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    formData.company = companyDetail.data._id;
+    formData.user = profile.data._id;
+    formData.date = dateTime.toJSON();
+    const { user, company, date } = formData;
+
+    try {
+      const response = await createCompany({ user, company, date });
+
+      if (!response.success) {
+        throw new Error('Network response was not ok');
       }
-    )
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (result) {
-        alert(result);
-      })
-      .catch(function (error) {
-        console.log('Request failed', error);
-      });
+      alert('Company created');
+    } catch (error) {
+      console.error('An unexpected error happened:', error);
+      alert('Create company failed');
+    }
   };
 
   return (
@@ -98,10 +136,11 @@ export default async function Booking({ params }: { params: { cid: string } }) {
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DateTimePicker
                   label="Date Time picker"
+                  name="date"
                   defaultValue={dateTime}
                   value={dateTime}
                   onChange={(newValue) => {
-                    newValue ? (dateTime = newValue) : null;
+                    newValue ? setDateTime(newValue) : null;
                   }}
                 />
               </LocalizationProvider>
