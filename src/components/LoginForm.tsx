@@ -3,10 +3,14 @@ import { signIn } from 'next-auth/react';
 import React from 'react';
 
 const LoginForm = () => {
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const email = event.target.email.value;
-    const password = event.target.password.value;
+    const target = event.target as typeof event.target & {
+      email: { value: string };
+      password: { value: string };
+    };
+    const email = target.email.value;
+    const password = target.password.value;
 
     const result = await signIn('credentials', {
       redirect: false,

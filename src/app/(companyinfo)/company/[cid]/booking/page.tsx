@@ -1,7 +1,7 @@
 import DateReserve from '@/components/DateReserve';
 import { TextField } from '@mui/material';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/auth/[...nextauth]/route';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import getUserProfile from '@/libs/getUserProfile';
 import getCompany from '@/libs/getCompany';
 import Image from 'next/image';
