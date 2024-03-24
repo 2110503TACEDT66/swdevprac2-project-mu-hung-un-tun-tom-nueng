@@ -16,21 +16,15 @@ const TopMenu = async () => {
         </div>
         <div className="jusitfy-center flex">
           <TopMenuItem title="Home" pageRef="/" />
-          <TopMenuItem title="About us" pageRef="/about" />
+          {/* <TopMenuItem title="About us" pageRef="/about" /> */}
           <TopMenuItem title="Company" pageRef="/company" />
           <TopMenuItem title="Session" pageRef="/session" />
         </div>
         <div className="text-bold mb-auto mt-auto flex flex-row space-x-5 text-white">
-          {session ? (
-            <Link href="api/auth/signout">
-              <div className="flex h-[60px] w-[120px] flex-row items-center justify-center rounded-3xl bg-blue1">
-                Logout of {session.user?.name}
-              </div>
-            </Link>
-          ) : (
+          {session ? null : (
             <div className="text-bold mb-auto mt-auto flex flex-row space-x-5 text-center text-white">
               <Link
-                href="api/auth/login"
+                href="api/auth/signin"
                 className="h-[60px] w-[120px] items-center justify-center rounded-3xl bg-blue1 py-4"
               >
                 Login

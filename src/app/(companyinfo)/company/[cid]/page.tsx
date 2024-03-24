@@ -1,23 +1,21 @@
 import Image from 'next/image';
 import getCompany from '@/libs/getCompany';
 import Link from 'next/link';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { getServerSession } from 'next-auth';
 
 export default async function CompanyDetailPage({
   params,
 }: {
   params: { cid: string };
 }) {
-  const companyDetail = await getCompany(params.cid);
-  // const companyDetail = {
-  //     data: {
-  //         name: "ABC",
-  //         desc: "bla bla bla",
-  //         picture: "/img/about1.png",
-  //         website: "https://abc.com",
-  //         address: "123",
-  //         tel: "0812345678"
-  //     }
-  // }
+  const session = await getServerSession(authOptions);
+
+  if (!session || !session.user.token) {
+    return <p> Please Login to see the Company</p>;
+  }
+
+  const companyDetail = await getCompany(session.user.token, params.cid);
 
   return (
     <main className="mx-20 my-28 rounded-3xl border p-14 shadow-inner">

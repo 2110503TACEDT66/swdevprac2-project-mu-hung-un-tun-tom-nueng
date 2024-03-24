@@ -18,17 +18,12 @@ export default async function CompanyCatalog({
     redirect('/auth/login');
   }
 
-  const profile = await getUserProfile(session.user.token);
-  // var createdAt = new Date(profile.data.createdAt);
-
   return (
     <>
-      {/* Explore {allCompanyJsonReady?.count} allCompany in our catalog */}
       <div className="flex w-[100%] flex-row justify-between">
-        <h1 className="order-1 text-[40px] font-bold">Company List</h1>
-
+        <h1 className="order-first text-[35px] font-bold">Company List</h1>
         <TextField
-          className="order-2 mt-[15px] w-[25%]"
+          className="order-last mt-[20px] w-[25%]"
           label="Company Name"
           name="companyName"
           id="companyName"
@@ -40,35 +35,13 @@ export default async function CompanyCatalog({
             },
           }}
         />
-
-        {profile.data.role == 'admin' ? (
-          <Link href="/company/create">
-            <button
-              className="inline h-[3em] w-[40vw] rounded-3xl bg-indigo-600 px-3 py-2 text-white shadow-sm hover:bg-indigo-800"
-              name="createCompany"
-              id="createCompany"
-              value="Create Company"
-            >
-              Create Company
-            </button>
-          </Link>
-        ) : null}
       </div>
-      <div
-        style={{
-          margin: '20px',
-          display: 'flex',
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          justifyContent: 'space-around',
-          alignContent: 'space-around',
-        }}
-      >
+      <div className="grid grid-cols-1 gap-8 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {allCompanyJsonReady.data.map((companyItem: CompanyItem) => (
           <Link
             key={companyItem.id}
             href={`/company/${companyItem.id}`}
-            className="w-1/5"
+            className="block overflow-hidden rounded-lg bg-white shadow-lg hover:bg-gray-100"
           >
             <Card companyName={companyItem.name} imgSrc={companyItem.picture} />
           </Link>
