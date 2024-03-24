@@ -21,8 +21,8 @@ export const authOptions:AuthOptions = {
               // Add logic here to look up the user from the credentials supplied
               if(!credentials) return null
                 
-              // const user = await userLogIn(credentials.email, credentials.password)
-              const user = await userLogIn("admin@gmail.com", "123456")
+              const user = await userLogIn(credentials.email, credentials.password)
+              // const user = await userLogIn("admin@gmail.com", "123456")
               // const user = { id: "1", name: "J Smith", email: "admin@gmail.com"}
 
               if (user) {
@@ -46,18 +46,17 @@ export const authOptions:AuthOptions = {
         session.user = token as any
         return session
       },
-      async redirect({ url, baseUrl }) {
-        // Allows relative callback URLs
-        if (url.startsWith("/")) return `${baseUrl}${url}`
-        // Allows callback URLs on the same origin
-        else if (new URL(url).origin === baseUrl) return url
-        return baseUrl
-      },
+      // async redirect({ url, baseUrl }) {
+      //   // Allows relative callback URLs
+      //   if (url.startsWith("/")) return `${baseUrl}${url}`
+      //   // Allows callback URLs on the same origin
+      //   else if (new URL(url).origin === baseUrl) return url
+      //   return baseUrl
+      // },
     },
     pages: {
-      signIn: '/auth/login',
-      signOut: '/auth/logout',
-      
+      // signIn: '/login',
+      // signOut: '/logout',
     }
 }
 const handler = NextAuth(authOptions)

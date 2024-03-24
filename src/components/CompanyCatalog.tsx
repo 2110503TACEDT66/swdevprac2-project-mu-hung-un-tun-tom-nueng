@@ -2,10 +2,11 @@ import { getServerSession } from "next-auth";
 import Card from "./Card"
 import { Link, TextField } from "@mui/material"
 import getUserProfile from "@/libs/getUserProfile";
-import { authOptions } from "@/app/auth/[...nextauth]/route";
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { redirect } from 'next/navigation'
 
 export default async function CompanyCatalog({allCompanyJson}:{allCompanyJson: Promise<CompanyJson>}) {
+
     const allCompanyJsonReady = await allCompanyJson;
 
     const session = await getServerSession(authOptions)
@@ -22,9 +23,9 @@ export default async function CompanyCatalog({allCompanyJson}:{allCompanyJson: P
             {/* Explore {allCompanyJsonReady?.count} allCompany in our catalog */}
             <div className="w-[100%] flex flex-row justify-between">
 
-                <h1 className="order-1 text-[40px] font-bold">Company List</h1>
+                <h1 className="order-first text-[40px] font-bold">Company List</h1>
 
-                <TextField className="order-2 mt-[15px] w-[25%]" label="Company Name" name="companyName" id="companyName" placeholder="Company Name" size="small" 
+                <TextField className="order-last mt-[15px] w-[25%]" label="Company Name" name="companyName" id="companyName" placeholder="Company Name" size="small" 
                 InputProps={{
                     style: {
                     borderRadius: "10px",
@@ -33,7 +34,7 @@ export default async function CompanyCatalog({allCompanyJson}:{allCompanyJson: P
 
                 {
                     profile.data.role=="admin"? <Link href="/company/create">
-                        <button className="inline w-[40vw] h-[3em] rounded-3xl bg-indigo-600 hover:bg-indigo-800 px-3 py-2 text-white shadow-sm" name="createCompany" id="createCompany" value="Create Company">
+                        <button className="order-last inline w-[20vw] h-[3em] rounded-3xl bg-indigo-600 hover:bg-indigo-800 px-3 py-2 text-white shadow-sm mt-[10px]" name="createCompany" id="createCompany" value="Create Company">
                             Create Company
                         </button>
                     </Link> : null
@@ -43,7 +44,7 @@ export default async function CompanyCatalog({allCompanyJson}:{allCompanyJson: P
             <div style={{margin: "20px", display: "flex", flexDirection: "row", 
             flexWrap: "wrap", justifyContent: "space-around", alignContent: "space-around"}}>
                 {
-                    allCompanyJsonReady.data.map((companyItem:CompanyItem)=>(
+                    allCompanyJsonReady.data?.map((companyItem:CompanyItem)=>(
                         <Link href={`/company/${companyItem.id}`} className="w-1/5">
                             <Card companyName={companyItem.name} imgSrc={companyItem.picture}/>
                         </Link>

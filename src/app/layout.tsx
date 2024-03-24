@@ -2,7 +2,7 @@ import './globals.css';
 import TopMenu from '@/components/TopMenu';
 import { getServerSession } from 'next-auth';
 import { Raleway } from 'next/font/google';
-import { authOptions } from './auth/[...nextauth]/route';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import NextAuthProvider from '@/providers/NextAuthProvider';
 
 const raleway = Raleway({
