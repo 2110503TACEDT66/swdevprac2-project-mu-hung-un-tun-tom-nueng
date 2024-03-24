@@ -18,25 +18,10 @@ export default async function CompanyCatalog({
     redirect('/auth/login');
   }
 
-  const profile = await getUserProfile(session.user.token);
-  // var createdAt = new Date(profile.data.createdAt);
-
-  const findCompany = async (e: any) => {
-    e.preventDefault();
-
-    const response = await fetch(
-      'https://job-fair-frontend-but-backend.vercel.app/company',
-      {
-        method: 'GET',
-      }
-    );
-  };
-
   return (
     <>
       <div className="flex w-[100%] flex-row justify-between">
         <h1 className="order-first text-[35px] font-bold">Company List</h1>
-        {/* <form onSubmit={findCompany}> */}
         <TextField
           className="order-last mt-[20px] w-[25%]"
           label="Company Name"
@@ -50,37 +35,13 @@ export default async function CompanyCatalog({
             },
           }}
         />
-        {/* </form> */}
-
-        {/* {profile.data.role == 'admin' ? (
-          <Link href="/company/create">
-            <button
-              className="inline h-[3em] w-[40vw] rounded-3xl bg-indigo-600 px-3 py-2 text-white shadow-sm hover:bg-indigo-800"
-              name="createCompany"
-              id="createCompany"
-              value="Create Company"
-            >
-              Create Company
-            </button>
-          </Link>
-        ) : null} */}
       </div>
-      <div
-        className="m-10   flex flex-row flex-wrap content-around justify-around"
-        // style={{
-        //   margin: '30px',
-        //   display: 'flex',
-        //   flexDirection: 'row',
-        //   flexWrap: 'wrap',
-        //   justifyContent: 'space-around',
-        //   alignContent: 'space-around',
-        // }}
-      >
+      <div className="grid grid-cols-1 gap-8 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {allCompanyJsonReady.data.map((companyItem: CompanyItem) => (
           <Link
             key={companyItem.id}
             href={`/company/${companyItem.id}`}
-            className="w-1/5"
+            className="block overflow-hidden rounded-lg bg-white shadow-lg hover:bg-gray-100"
           >
             <Card companyName={companyItem.name} imgSrc={companyItem.picture} />
           </Link>
