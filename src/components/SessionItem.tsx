@@ -2,7 +2,7 @@ export default function SessionItem({
   company,
   date,
 }: {
-  company: Object;
+  company: any;
   date: Date;
 }) {
   return (
