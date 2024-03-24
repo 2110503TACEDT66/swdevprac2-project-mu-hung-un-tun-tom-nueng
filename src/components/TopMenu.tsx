@@ -22,7 +22,7 @@ const TopMenu = async () => {
         </div>
         <div className="text-bold mb-auto mt-auto flex flex-row space-x-5 text-white">
           {session ? (
-            <Link href="auth/logout">
+            <Link href="api/auth/signout">
               <div className="flex h-[60px] w-[120px] flex-row items-center justify-center rounded-3xl bg-blue1">
                 Logout of {session.user?.name}
               </div>
@@ -30,7 +30,7 @@ const TopMenu = async () => {
           ) : (
             <div className="text-bold mb-auto mt-auto flex flex-row space-x-5 text-center text-white">
               <Link
-                href="auth/login"
+                href="api/auth/login"
                 className="h-[60px] w-[120px] items-center justify-center rounded-3xl bg-blue1 py-4"
               >
                 Login

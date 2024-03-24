@@ -8,7 +8,7 @@ import getSession from '@/libs/getSession';
 export default async function Session() {
   const session = await getServerSession(authOptions);
   if (!session || !session.user.token) {
-    redirect('/auth/login');
+    redirect('/api/auth/login');
   }
   const sessions = getSession(session.user.token);
 

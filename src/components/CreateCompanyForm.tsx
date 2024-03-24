@@ -1,8 +1,3 @@
-import Company from '@/db/models/Company';
-import { dbConnect } from '@/db/dbConnect';
-import { revalidateTag } from 'next/cache';
-import { redirect } from 'next/navigation';
-
 export default function CreateCompanyForm() {
   return (
     <div className="z-50 space-y-2 p-20 sm:ml-72">
