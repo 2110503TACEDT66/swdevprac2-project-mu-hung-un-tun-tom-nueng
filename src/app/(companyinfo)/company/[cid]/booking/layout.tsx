@@ -1,5 +1,3 @@
-// import BookingMenu from "@/components/BookingMenu"
-
 export default function BookingLayout({
   children,
   // dashboard,

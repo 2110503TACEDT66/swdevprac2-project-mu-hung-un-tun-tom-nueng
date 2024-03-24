@@ -1,4 +1,9 @@
-import DateReserve from '@/components/DateReserve';
+'use client';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { useState } from 'react';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateTimePicker } from '@mui/x-date-pickers';
+import dayjs from 'dayjs';
 import { TextField } from '@mui/material';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
@@ -6,29 +11,54 @@ import getUserProfile from '@/libs/getUserProfile';
 import getCompany from '@/libs/getCompany';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 export default async function Booking({ params }: { params: { cid: string } }) {
-  const companyDetail = await getCompany(params.cid);
+  const { data: session } = useSession();
 
-  const session = await getServerSession(authOptions);
+  // const session = await getServerSession(authOptions);
   if (!session || !session.user.token) {
-    alert('Please Login');
-    redirect('/auth/login');
+    return <p> Please Login to see the Company</p>;
   }
 
-  const profile = await getUserProfile(session.user.token);
-  var createdAt = new Date(profile.data.createdAt);
+  const companyDetail = await getCompany(session.user.token, params.cid);
 
-  // const companyDetail = {
-  //     data: {
-  //         name: "ABC",
-  //         desc: "bla bla bla",
-  //         picture: "/img/about1.png",
-  //         website: "https://abc.com",
-  //         address: "123",
-  //         tel: "0812345678"
-  //     }
-  // }
+  const profile = await getUserProfile(session.user.token);
+  // var createdAt = new Date(profile.data.createdAt);
+  var user = profile;
+
+  //const [email, setEmail] = useState(null);
+  // const [dateTime, setDateTime] = useState(dayjs('2022-05-10T15:30'));
+  // const [dateTime, setDateTime] = useState(null);
+  var dateTime = dayjs('2022-05-10T15:30');
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    let formData = new FormData();
+    // const userId = await fetch("https://job-fair-frontend-but-backend.vercel.app/", {
+    //   method: "GET",
+    //   body: formData,
+    // });
+    formData.append('company', companyDetail.data._id.toJSON());
+    formData.append('user', profile.data._id.toJSON());
+    formData.append('date', dateTime.toJSON());
+    const response = await fetch(
+      'https://job-fair-frontend-but-backend.vercel.app/sessions',
+      {
+        method: 'POST',
+        body: formData,
+      }
+    )
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (result) {
+        alert(result);
+      })
+      .catch(function (error) {
+        console.log('Request failed', error);
+      });
+  };
 
   return (
     <main className="mx-20 my-28 rounded-3xl border p-14 shadow-inner">
@@ -42,21 +72,52 @@ export default async function Booking({ params }: { params: { cid: string } }) {
           sizes="100vw"
           className="h-fit w-[30%]"
         />
-        <div className="mx-32 text-left">
-          <div className="text-md w-fit space-y-2 text-left text-gray-600">
+        <form onSubmit={handleSubmit} className="px-[3em] text-left">
+          {/* {
+            profile.data.role=='admin'? <div className="w-auto text-md text-left text-black">
+              <p className='block'>Email</p>
+              <TextField
+                className="mx-10 mt-[10px] w-[19vw]"
+                label="Email"
+                name="Email"
+                id="email"
+                placeholder="Email"
+                size="small"
+                InputProps={{
+                  style: {
+                    borderRadius: '10px',
+                  },
+                }}
+                onSubmit={ user.email }
+              />
+            </div> : null
+          } */}
+          <div className="text-md mt-[15px] w-fit space-y-2 text-left text-black">
             Available Date
-            <DateReserve />
+            <div className="flex w-fit flex-row justify-center space-x-5 space-y-2 rounded-lg px-10 py-5">
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DateTimePicker
+                  label="Date Time picker"
+                  defaultValue={dateTime}
+                  value={dateTime}
+                  onChange={(newValue) => {
+                    newValue ? (dateTime = newValue) : null;
+                  }}
+                />
+              </LocalizationProvider>
+            </div>
           </div>
 
           <button
             className="mt-2 inline h-[3em] w-[40vw] rounded-3xl bg-indigo-600 px-3 py-2 text-white shadow-sm hover:bg-indigo-800"
+            type="submit"
             name="bookvaccine"
             id="bookvaccine"
             value="Book Vaccine"
           >
             Confirm
           </button>
-        </div>
+        </form>
       </div>
     </main>
   );

@@ -21,14 +21,24 @@ export default async function CompanyCatalog({
   const profile = await getUserProfile(session.user.token);
   // var createdAt = new Date(profile.data.createdAt);
 
+  const findCompany = async (e: any) => {
+    e.preventDefault();
+
+    const response = await fetch(
+      'https://job-fair-frontend-but-backend.vercel.app/company',
+      {
+        method: 'GET',
+      }
+    );
+  };
+
   return (
     <>
-      {/* Explore {allCompanyJsonReady?.count} allCompany in our catalog */}
       <div className="flex w-[100%] flex-row justify-between">
-        <h1 className="order-1 text-[40px] font-bold">Company List</h1>
-
+        <h1 className="order-first text-[35px] font-bold">Company List</h1>
+        {/* <form onSubmit={findCompany}> */}
         <TextField
-          className="order-2 mt-[15px] w-[25%]"
+          className="order-last mt-[20px] w-[25%]"
           label="Company Name"
           name="companyName"
           id="companyName"
@@ -40,8 +50,9 @@ export default async function CompanyCatalog({
             },
           }}
         />
+        {/* </form> */}
 
-        {profile.data.role == 'admin' ? (
+        {/* {profile.data.role == 'admin' ? (
           <Link href="/company/create">
             <button
               className="inline h-[3em] w-[40vw] rounded-3xl bg-indigo-600 px-3 py-2 text-white shadow-sm hover:bg-indigo-800"
@@ -52,17 +63,18 @@ export default async function CompanyCatalog({
               Create Company
             </button>
           </Link>
-        ) : null}
+        ) : null} */}
       </div>
       <div
-        style={{
-          margin: '20px',
-          display: 'flex',
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          justifyContent: 'space-around',
-          alignContent: 'space-around',
-        }}
+        className="m-10   flex flex-row flex-wrap content-around justify-around"
+        // style={{
+        //   margin: '30px',
+        //   display: 'flex',
+        //   flexDirection: 'row',
+        //   flexWrap: 'wrap',
+        //   justifyContent: 'space-around',
+        //   alignContent: 'space-around',
+        // }}
       >
         {allCompanyJsonReady.data.map((companyItem: CompanyItem) => (
           <Link
