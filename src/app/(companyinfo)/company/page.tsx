@@ -1,11 +1,18 @@
 import CompanyCatalog from '@/components/CompanyCatalog';
 import { Suspense } from 'react';
 import LinearProgress from '@mui/material/LinearProgress';
-import CardPanel from '@/components/CardPanel';
 import getAllCompany from '@/libs/getAllCompany';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
-export default function Company() {
-  const allCompany = getAllCompany();
+export default async function Company() {
+  const session = await getServerSession(authOptions);
+
+  if (!session || !session.user.token) {
+    return <p> Please Login to see the Company</p>;
+  }
+
+  const allCompany = await getAllCompany(session.user.token);
 
   return (
     <main className="p-16 text-left">
