@@ -1,10 +1,18 @@
 'use client';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { getServerSession } from 'next-auth';
 import SideBarProfile from './SideBarProfile';
 import { useRouter } from 'next/navigation';
 import SideBarItem from './SideBarItem';
+import getUserProfile from '@/libs/getUserProfile';
 
-export default function SideBar({ role }: { role: boolean }) {
+export default async function SideBar() {
   const router = useRouter();
+
+  const session = await getServerSession(authOptions);
+  if (!session || !session.user.token) return null;
+  const profile = await getUserProfile(session.user.token);
+
   return (
     <div
       className="fixed left-0 top-0 flex h-full h-screen 
@@ -12,11 +20,11 @@ export default function SideBar({ role }: { role: boolean }) {
     >
       <div className="absolute top-56">
         <SideBarItem route="Session" />
-        {role && ( // Using a logical AND operator to conditionally render if 'role' is true
+        {profile.data.role == 'admin' ? (
           <div>
             <SideBarItem route="Company" />
           </div>
-        )}
+        ) : null}
         <SideBarItem route="Profile" />
       </div>
       <div className="absolute bottom-10 flex flex-col">
