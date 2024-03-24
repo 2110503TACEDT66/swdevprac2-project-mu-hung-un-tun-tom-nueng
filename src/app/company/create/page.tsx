@@ -1,12 +1,12 @@
-import SessionPanel from '@/components/SessionPanel';
 import SideBar from '@/components/SideBar';
+import CreateCompanyPanel from '@/components/CreateCompanyPanel';
 
-export default function Session() {
+export default function CreateCompany() {
   const admin = true;
   return (
     <main>
       <SideBar role={admin} />
-      <SessionPanel role={admin} />
+      <CreateCompanyPanel />
     </main>
   );
 }

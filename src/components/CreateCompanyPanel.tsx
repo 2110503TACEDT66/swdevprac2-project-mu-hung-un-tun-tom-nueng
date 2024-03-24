@@ -1,12 +1,12 @@
 import Image from 'next/image';
 
-export default function ProfilePanel() {
+export default function CreateCompanyPanel() {
   return (
     <div className="z-50 space-y-2 p-20 sm:ml-72">
       <div className="mb-5 border-b-2 p-5 text-5xl">Edit Profile</div>
       <div className="flex h-full flex-col items-center bg-white px-3">
         <Image
-          src={'/img/user.png'}
+          src={'/img/image.png'}
           alt="logo"
           width={100}
           height={100}
@@ -15,88 +15,68 @@ export default function ProfilePanel() {
         <div className="font-semibold hover:text-blue1 hover:underline ">
           Select photo
         </div>
-
         <form className="mt-5">
-          <div className="mb-3 grid gap-3 md:grid-cols-2">
-            <div>
-              <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-                First name
-                <input
-                  type="text"
-                  id="first_name"
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 
-                                    text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white 
-                                    dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                  placeholder="John"
-                />
-              </label>
-            </div>
-            <div>
-              <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-                Last name
-                <input
-                  type="text"
-                  id="last_name"
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 
-                                    text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white 
-                                    dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                  placeholder="Doe"
-                />
-              </label>
-            </div>
-          </div>
           <div className="mb-3">
             <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-              Phone number
+              Company name
               <input
-                type="tel"
-                id="phone"
+                type="text"
+                id="companyName"
                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 
                                 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-                placeholder="0811111111"
-                pattern="[0-9]{10}"
+                placeholder="Company name"
               />
             </label>
           </div>
           <div className="mb-3">
             <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-              Email address
+              Address
               <input
-                type="email"
-                id="email"
+                type="text"
+                id="address"
                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 
-                                text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white 
-                                dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder="user@gmail.com"
+                                text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+                placeholder="Address"
               />
             </label>
           </div>
           <div className="mb-3">
             <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-              Password
+              Website
               <input
-                type="password"
-                id="password"
+                type="text"
+                id="website"
                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 
-                            text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white 
-                            dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder="•••••••••"
+                                text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+                placeholder="Website"
               />
             </label>
           </div>
           <div className="mb-3">
             <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-              Confirm password
+              Description
               <input
-                type="password"
-                id="confirm_password"
+                type="text"
+                id="description"
                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 
-                            text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white 
-                            dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder="•••••••••"
+                                text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+                placeholder="Description"
               />
             </label>
           </div>
+          <div className="mb-3">
+            <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+              Tel.
+              <input
+                type="text"
+                id="tel"
+                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 
+                                text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+                placeholder="Tel."
+              />
+            </label>
+          </div>
+
           <div className="mb-6 flex items-start">
             <label className="ms-2 flex flex-row text-sm font-medium text-gray-900 dark:text-gray-300">
               <input
@@ -118,7 +98,6 @@ export default function ProfilePanel() {
           </div>
           <div className="mb-6 flex items-start">
             <button
-              type="submit"
               className="w-full rounded-3xl bg-blue-200 px-5 py-2.5 text-center 
             text-sm font-medium text-white hover:bg-blue1"
             >
