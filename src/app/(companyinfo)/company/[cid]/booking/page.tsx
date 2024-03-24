@@ -4,97 +4,83 @@ import { FormEvent, FormEventHandler, useState } from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
-import { TextField } from '@mui/material';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import getUserProfile from '@/libs/getUserProfile';
-import getCompany from '@/libs/getCompany';
-import Image from 'next/image';
-import { redirect } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import createCompany from '@/libs/createCompany';
+import Image from 'next/image';
+import createBooking from '@/libs/createBooking';
+import useSWR from 'swr';
+import { useRouter } from 'next/navigation';
 
 type FormDataSession = {
-  user: string;
   company: string;
   date: string;
 };
 
-export default async function Booking({ params }: { params: { cid: string } }) {
+const fetcher = async ([url, token]: [string, string]): Promise<any> => {
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) throw new Error('Failed to fetch data');
+  return response.json();
+};
+
+export default function Booking({ params }: { params: { cid: string } }) {
   const [dateTime, setDateTime] = useState(dayjs('2022-05-10T15:30'));
   const [formData, setFormData] = useState<FormDataSession>({
-    user: '',
     company: '',
     date: '',
   });
-
+  const router = useRouter();
   const { data: session } = useSession();
 
-  // const session = await getServerSession(authOptions);
   if (!session || !session.user.token) {
     return <p> Please Login to see the Company</p>;
   }
 
-  const companyDetail = await getCompany(session.user.token, params.cid);
+  // eslint-disable-next-line
+  const { data: companyDetail, error: companyError } = useSWR(
+    session?.user.token
+      ? [
+          `https://job-fair-frontend-but-backend.vercel.app/company/${params.cid}`,
+          session.user.token,
+        ]
+      : null,
+    fetcher
+  );
+  // const { data: userProfile, error: profileError } = useSWR(
+  //   session?.user.token ? ['https://job-fair-frontend-but-backend.vercel.app/auth/me', session.user.token] : null, fetcher
+  // );
 
-  const profile = await getUserProfile(session.user.token);
+  if (companyError) return <div>Failed to load data</div>;
+  if (!companyDetail) return <div>Loading...</div>;
 
-  //var dateTime = dayjs('2022-05-10T15:30');
-
-  // const [dateTime, setDateTime] = useState(null);
-  // var dateTime = dayjs('2022-05-10T15:30');
-
-  // const handleInputChange = (event: any) => {
-  //   // const { name, value } = event.target;
-  //   // setFormData({ ...formData, [name]: value });
-  //   setDateTime(event.target.newValue);
-  // };
-
-  // const handleSubmit = async (e: any) => {
-  //   e.preventDefault();
-  //   let formData = new FormData();
-  //   // const userId = await fetch("https://job-fair-frontend-but-backend.vercel.app/", {
-  //   //   method: "GET",
-  //   //   body: formData,
-  //   // });
-  //   formData.append('company', companyDetail.data._id.toJSON());
-  //   formData.append('user', profile.data._id.toJSON());
-  //   formData.append('date', dateTime.toJSON());
-  //   const response = await fetch(
-  //     'https://job-fair-frontend-but-backend.vercel.app/sessions',
-  //     {
-  //       method: 'POST',
-  //       body: formData,
-  //     }
-  //   )
-  //     .then(function (response) {
-  //       return response.json();
-  //     })
-  //     .then(function (result) {
-  //       alert(result);
-  //     })
-  //     .catch(function (error) {
-  //       console.log('Request failed', error);
-  //     });
-  // };
-
+  // console.log(dateTime.toJSON());
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     formData.company = companyDetail.data._id;
-    formData.user = profile.data._id;
     formData.date = dateTime.toJSON();
-    const { user, company, date } = formData;
+    const { company, date } = formData;
 
     try {
-      const response = await createCompany({ user, company, date });
-
+      const response = await createBooking({
+        company,
+        date,
+        token: session.user.token,
+      });
       if (!response.success) {
-        throw new Error('Network response was not ok');
+        throw new Error('Failed to create company');
       }
       alert('Company created');
+      router.push('/company');
     } catch (error) {
-      console.error('An unexpected error happened:', error);
-      alert('Create company failed');
+      // console.error('An unexpected error happened:', error);
+      alert(
+        "you can't reserve more than 3 booking, pleases delete one of your booking first"
+      );
+      router.push('/session');
     }
   };
 
@@ -111,25 +97,6 @@ export default async function Booking({ params }: { params: { cid: string } }) {
           className="h-fit w-[30%]"
         />
         <form onSubmit={handleSubmit} className="px-[3em] text-left">
-          {/* {
-            profile.data.role=='admin'? <div className="w-auto text-md text-left text-black">
-              <p className='block'>Email</p>
-              <TextField
-                className="mx-10 mt-[10px] w-[19vw]"
-                label="Email"
-                name="Email"
-                id="email"
-                placeholder="Email"
-                size="small"
-                InputProps={{
-                  style: {
-                    borderRadius: '10px',
-                  },
-                }}
-                onSubmit={ user.email }
-              />
-            </div> : null
-          } */}
           <div className="text-md mt-[15px] w-fit space-y-2 text-left text-black">
             Available Date
             <div className="flex w-fit flex-row justify-center space-x-5 space-y-2 rounded-lg px-10 py-5">
@@ -142,6 +109,8 @@ export default async function Booking({ params }: { params: { cid: string } }) {
                   onChange={(newValue) => {
                     newValue ? setDateTime(newValue) : null;
                   }}
+                  minDate={dayjs('2022-05-10T')}
+                  maxDate={dayjs('2022-05-13T23:59')}
                 />
               </LocalizationProvider>
             </div>

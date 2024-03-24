@@ -1,16 +1,14 @@
-export default async function createCompany({
-  user,
+export default async function createBooking({
   company,
   date,
   token,
 }: {
-  user: string;
   company: string;
   date: string;
   token: string;
 }) {
   const response = await fetch(
-    'https://job-fair-frontend-but-backend.vercel.app/company',
+    'https://job-fair-frontend-but-backend.vercel.app/sessions',
     {
       method: 'POST',
       headers: {
@@ -23,7 +21,6 @@ export default async function createCompany({
       }),
     }
   );
-  console.log(response);
 
   if (!response.ok) {
     throw new Error('Create company failed');
