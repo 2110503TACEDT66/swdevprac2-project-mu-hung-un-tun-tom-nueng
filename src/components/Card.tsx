@@ -10,7 +10,7 @@ export default function Card ( { companyName, imgSrc } : { companyName: string, 
 
     return (
         <InteractiveCard contentName={ companyName }>
-            <div className='w-full h-[70%] relative rounded-t-lg'>
+            <div className='w-full h-[70%] relative rounded-t-lg m-5'>
                 <Image src={imgSrc} 
                     alt='Company Picture'
                     fill={true}

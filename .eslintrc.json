@@ -3,6 +3,7 @@
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": "warn",
-    "no-console": "warn"
+    "no-console": "warn",
+    "react/jsx-key": [1, { "checkFragmentShorthand": true }]
   }
 }
