@@ -22,17 +22,9 @@ export default async function SideBar() {
             <SideBarItem route="Company" path="/company/create" />
           </div>
         ) : null}
-        <SideBarItem route="Profile" path="/profile" />
       </div>
       <div className="absolute bottom-10 flex flex-col">
         <SideBarProfile />
-        <Link
-          href="/profile"
-          className="rounded-3xl border-2 px-10 py-2 text-center
-                        hover:border-blue1 hover:bg-blue1 hover:text-white"
-        >
-          Edit Profile
-        </Link>
         <Link
           href="/auth/logout"
           className="mt-2 rounded-3xl border-2 px-10 py-2 text-center
