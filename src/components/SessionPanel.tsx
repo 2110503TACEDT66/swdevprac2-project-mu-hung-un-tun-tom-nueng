@@ -19,7 +19,7 @@ export default async function SessionPanel({
     <div className="z-50 space-y-2 p-20 sm:ml-72">
       <div className="flex flex-row items-center justify-between border-b-2">
         <div className="p-5 text-5xl">Session</div>
-        {profile.data.role == 'admin' ? (
+        {/* {profile.data.role == 'admin' ? (
           <div>
             <Link
               className="self-end rounded-3xl border-2 border-blue1 px-10 py-2 font-semibold text-blue1 
@@ -29,7 +29,7 @@ export default async function SessionPanel({
               Create new session
             </Link>
           </div>
-        ) : null}
+        ) : null} */}
       </div>
       <div>
         {SessionJson.data.map((sessionItem: SessionItem) => (
