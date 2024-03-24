@@ -1,4 +1,4 @@
-import { authOptions } from '@/app/auth/[...nextauth]/route';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import TopMenuItem from './TopMenuItem';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -23,16 +23,16 @@ const TopMenu = async () => {
         </div>
         <div className="text-bold mb-auto mt-auto flex flex-row space-x-5 text-white">
         {
-                session? <Link href="auth/logout">
+                session? <Link href="api/auth/signout">
                     <div className='flex flex-row h-[60px] w-[120px] items-center justify-center rounded-3xl bg-blue1'>
                         Logout of {session.user?.name}
                     </div>
                 </Link> : 
                 <div className='flex flex-row text-bold mb-auto mt-auto space-x-5 text-white text-center'>
-                    <Link href="auth/login" className="h-[60px] w-[120px] items-center justify-center rounded-3xl bg-blue1 py-4">
+                    <Link href="api/auth/signin" className="h-[60px] w-[120px] items-center justify-center rounded-3xl bg-blue1 py-4">
                         Login
                     </Link>
-                    <Link href="auth/register" className="h-[60px] w-[120px] items-center justify-center rounded-3xl bg-blue1 py-4">
+                    <Link href="api/auth/register" className="h-[60px] w-[120px] items-center justify-center rounded-3xl bg-blue1 py-4">
                         Register
                     </Link>
                 </div>
