@@ -1,4 +1,62 @@
-export default function CreateCompanyForm() {
+'use client';
+import { useState } from 'react';
+import Link from 'next/link';
+import React from 'react';
+import { FormEvent } from 'react';
+import createCompany from '@/libs/createCompany';
+
+type FormDataState = {
+  name: string;
+  address: string;
+  website: string;
+  desc: string;
+  tel: string;
+  picture: string | null;
+};
+
+const CreateCompanyForm = () => {
+  const [formData, setFormData] = useState<FormDataState>({
+    name: '',
+    address: '',
+    website: '',
+    desc: '',
+    tel: '',
+    picture: null,
+  });
+  const [isAgreed, setIsAgreed] = useState(false);
+
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsAgreed(event.target.checked);
+  };
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const { name, address, website, desc, tel, picture } = formData;
+
+    try {
+      const response = await createCompany({
+        name,
+        address,
+        website,
+        desc,
+        tel,
+        picture,
+      });
+
+      if (!response.success) {
+        throw new Error('Network response was not ok');
+      }
+      alert('Create successful');
+    } catch (error) {
+      console.error('An unexpected error happened:', error);
+      alert('Create failed');
+    }
+  };
+
   return (
     <div className="z-50 space-y-2 p-20 sm:ml-72">
       <div className="mb-5 border-b-2 p-5 text-5xl">Create Company</div>
@@ -137,4 +195,6 @@ export default function CreateCompanyForm() {
       </div>
     </div>
   );
-}
+};
+
+export default CreateCompanyForm;
