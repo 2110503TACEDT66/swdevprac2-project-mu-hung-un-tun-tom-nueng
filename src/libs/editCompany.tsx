@@ -1,6 +1,6 @@
-import React from 'react';
 
-export default async function createCompany({
+export default async function editCompany({
+  id,
   name,
   address,
   website,
@@ -9,18 +9,19 @@ export default async function createCompany({
   picture,
   token,
 }: {
-  name: string;
-  address: string;
-  website: string;
+  id: string
+  name?: string;
+  address?: string;
+  website?: string;
   desc?: string;
   tel?: string;
   picture?: string | null;
   token: string;
 }) {
   const response = await fetch(
-    'https://job-fair-frontend-but-backend.vercel.app/company',
+    `https://job-fair-frontend-but-backend.vercel.app/company/${id}`,
     {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         'authorization': `Bearer ${token}`,
@@ -36,7 +37,7 @@ export default async function createCompany({
     }
   );
   if (!response.ok) {
-    throw new Error('Create company failed');
+    throw new Error('Edit company failed');
   }
   return response.json();
 }

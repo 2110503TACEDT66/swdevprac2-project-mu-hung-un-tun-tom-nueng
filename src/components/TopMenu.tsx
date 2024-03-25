@@ -24,13 +24,13 @@ const TopMenu = async () => {
           {session ? null : (
             <div className="text-bold mb-auto mt-auto flex flex-row space-x-5 text-center text-white">
               <Link
-                href="api/auth/signin"
+                href="/api/auth/signin"
                 className="h-[60px] w-[120px] items-center justify-center rounded-3xl bg-blue1 py-4"
               >
                 Login
               </Link>
               <Link
-                href="auth/register"
+                href="/auth/register"
                 className="h-[60px] w-[120px] items-center justify-center rounded-3xl bg-blue1 py-4"
               >
                 Register
