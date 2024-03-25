@@ -14,7 +14,13 @@ export default async function CreateCompany() {
   return (
     <main>
       <SideBar />
-      <CreateCompanyForm />
+      {profile.data.role == 'admin' ? (
+        <CreateCompanyForm />
+      ) : (
+        <div className="mt-24 text-center sm:ml-72">
+          You are not authorized to access this page
+        </div>
+      )}
     </main>
   );
 }
