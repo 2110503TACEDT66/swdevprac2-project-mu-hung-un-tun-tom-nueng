@@ -31,14 +31,17 @@ export default async function SessionPanel({
           </div>
         ) : null} */}
       </div>
+      {SessionJson.count === 0 && (
+        <div className="pt-12 text-center">There is no session</div>
+      )}
       <div>
         {SessionJson.data.map((sessionItem: SessionItem) => (
-          <Link href={`/session/${sessionItem._id}`} key={sessionItem._id}>
-            <SessionItem
-              company={sessionItem.company}
-              date={sessionItem.date}
-            />
-          </Link>
+          <SessionItem
+            key={sessionItem._id}
+            id={sessionItem._id}
+            company={sessionItem.company}
+            date={sessionItem.date}
+          />
         ))}
       </div>
     </div>
