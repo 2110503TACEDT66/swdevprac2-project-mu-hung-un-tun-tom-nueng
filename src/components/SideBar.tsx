@@ -12,7 +12,7 @@ export default async function SideBar() {
 
   return (
     <div
-      className="fixed left-0 top-0 flex h-full h-screen 
+      className="fixed left-0 top-0 flex h-full 
       w-72 flex-col items-center bg-white px-3 py-20 shadow-lg"
     >
       <div className="absolute top-56">

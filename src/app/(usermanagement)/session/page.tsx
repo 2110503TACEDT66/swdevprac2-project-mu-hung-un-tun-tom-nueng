@@ -10,6 +10,7 @@ export default async function Session() {
   if (!session || !session.user.token) {
     redirect('/api/auth/login');
   }
+  // get booking sessions
   const sessions = getSession(session.user.token);
 
   return (
