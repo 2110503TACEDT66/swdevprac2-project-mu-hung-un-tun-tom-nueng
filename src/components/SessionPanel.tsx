@@ -33,12 +33,13 @@ export default async function SessionPanel({
       </div>
       <div>
         {SessionJson.data.map((sessionItem: SessionItem) => (
-          <Link href={`/session/${sessionItem._id}`} key={sessionItem._id}>
+          <div key={sessionItem._id}>
             <SessionItem
               company={sessionItem.company}
+              sessionID={sessionItem._id}
               date={sessionItem.date}
             />
-          </Link>
+          </div>
         ))}
       </div>
     </div>
