@@ -6,7 +6,6 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import getSessionById from '@/libs/getSessionById';
 import useSWR from 'swr';
-import { useRouter } from 'next/navigation';
 import updateSessionById from '@/libs/updateSessionById';
 
 const fetcher = ([key, token, session_id]: [string, string, string]) =>
@@ -24,7 +23,6 @@ function SessionEdit({
   token: string;
   session_id: string;
 }) {
-  const router = useRouter();
   const [dateTime, setDateTime] = useState(dayjs());
   const {
     data: session,
@@ -56,9 +54,10 @@ function SessionEdit({
         throw new Error('Failed to update session');
       }
       alert('Session updated successfully');
-      router.push(`/session`);
+      window.location.href = '/session';
     } catch (error) {
       console.error('Failed to update session:', error);
+      alert('you need to reserve between 2022-05-10 and 2022-05-13');
     }
   };
 
