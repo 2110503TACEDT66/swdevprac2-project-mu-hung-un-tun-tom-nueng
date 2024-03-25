@@ -15,8 +15,8 @@ export default async function Company() {
   const allCompany = await getAllCompany(session.user.token);
 
   return (
-    <main className="p-16 text-left">
-      <div className="">
+    <main className="">
+      <div className="px-16 py-12 text-left">
         <Suspense
           fallback={
             <p>
@@ -26,12 +26,6 @@ export default async function Company() {
         >
           <CompanyCatalog allCompanyJson={allCompany} />
         </Suspense>
-
-        {/* <hr className="my-10"/>
-                <h1 className="text-xl font-medium">
-                    TRY Client-side Card Panel
-                </h1>
-                <CardPanel/> */}
       </div>
     </main>
   );
