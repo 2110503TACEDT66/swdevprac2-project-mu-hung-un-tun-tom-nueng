@@ -9,14 +9,17 @@ import useSWR from 'swr';
 import updateSessionById from '@/libs/updateSessionById';
 import Image from 'next/image';
 
-const fetcher = ([key, token, session_id]: [string, string, string]) =>
-  getSessionById(token, session_id)
-    .then((res) => res.data[0])
-    .catch((error) => {
-      console.error('Failed to fetch session:', error);
-      throw error;
-    });
-
+const fetcher = async ([key, token, session_id]: [string, string, string]) => {
+  try {
+    const res = await getSessionById(token, session_id);
+    if (!res.data) throw new Error('No data returned');
+    const data = Array.isArray(res.data) ? res.data[0] : res.data;
+    return data;
+  } catch (error) {
+    console.error('Failed to fetch session:', error);
+    throw error;
+  }
+};
 function SessionEdit({
   token,
   session_id,
@@ -33,12 +36,11 @@ function SessionEdit({
     token && session_id ? [`sessionKey`, token, session_id] : null,
     fetcher
   );
-
   if (error) {
-    return <div>Failed to load session data.</div>;
+    return <div className="ml-72">Failed to load session data.</div>;
   }
-  if (isLoading) {
-    return <div>Loading session data...</div>;
+  if (isLoading || !session) {
+    return <div className="ml-72">Loading session data...</div>;
   }
 
   const sessionDate = session && session.date ? dayjs(session.date) : dateTime;
@@ -61,7 +63,7 @@ function SessionEdit({
       alert('you need to reserve between 2022-05-10 and 2022-05-13');
     }
   };
-  console.log(session.company);
+  console.log(session);
 
   return (
     <div className="z-50 space-y-2 p-20 sm:ml-72">
