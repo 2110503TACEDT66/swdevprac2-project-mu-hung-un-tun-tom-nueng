@@ -9,15 +9,15 @@ const Banner = () => {
   ];
 
   return (
-    <div className="relative flex h-[80vh] w-full flex-col py-5">
-      <div className="mx-[4vh] my-[8vh] flex flex-row">
-        <div className="flex flex-col space-y-[6vh]">
-          <div className="space-y-[1.5vh] text-6xl font-bold drop-shadow-lg">
+    <div className="relative flex h-screen w-full flex-col py-5 lg:h-[80vh]">
+      <div className="mx-[4vh] my-[8vh] flex flex-wrap items-center justify-between md:flex-row">
+        <div className="flex flex-col space-y-6 md:space-y-12">
+          <div className="space-y-3 text-4xl font-bold drop-shadow-lg md:space-y-1 md:text-6xl">
             <h1>Your Career</h1>
             <h1>Path Starts</h1>
             <h1>Here !</h1>
           </div>
-          <div className="space-y-[1vh] text-xl drop-shadow-sm">
+          <div className="text-md space-y-2 drop-shadow-sm md:space-y-1 md:text-xl">
             <p>Connect with top companies, find your dream job,</p>
             <p>and take your professional journey to the next level.</p>
           </div>
@@ -33,12 +33,12 @@ const Banner = () => {
           alt="Banner"
           width={0}
           height={0}
-          sizes="100vw"
-          className="ml-auto h-[40vh] w-auto min-w-[40vh] max-w-[100vh] rounded-3xl object-cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="mt-5 h-[40vh] w-auto min-w-[40vh] max-w-[100vh] rounded-3xl object-cover md:ml-10 md:mt-0"
         />
       </div>
 
-      <div className="absolute bottom-0 right-0 flex flex-row space-x-10">
+      <div className="absolute bottom-0 right-0 flex flex-row space-x-10 p-5">
         {partnerLogos.map((partner, index) => (
           <Partner key={index} logoUrl={partner.logoUrl} name={partner.name} />
         ))}
