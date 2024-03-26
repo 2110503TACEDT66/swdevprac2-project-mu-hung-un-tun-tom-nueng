@@ -20,4 +20,4 @@ Open http://localhost:3000 with your browser to see the result.
 
 ## deployment
 
-URL : job-fair-frontend.vercel.app
+URL : https://job-fair-frontend.vercel.app
