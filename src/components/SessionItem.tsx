@@ -51,7 +51,7 @@ export default function SessionItem({
           className="mx-1 rounded-3xl border-2 border-blue3 bg-blue3 px-8 
                           py-1 text-white hover:bg-white hover:text-blue3"
         >
-          <Link href="#">Edit</Link>
+          <Link href={`session/${id}/edit`}>Edit</Link>
         </div>
         <button
           className="rounded-3xl border-2 border-blue1 bg-blue1 px-8

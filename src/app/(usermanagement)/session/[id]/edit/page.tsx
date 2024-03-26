@@ -1,22 +1,20 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { getServerSession } from 'next-auth';
-import SessionPanel from '@/components/SessionPanel';
 import SideBar from '@/components/SideBar';
 import { redirect } from 'next/navigation';
-import getSession from '@/libs/getSession';
+import SessionEdit from '@/components/SessionEdit';
 
-export default async function Session() {
+export default async function Session({ params }: { params: { id: string } }) {
   const session = await getServerSession(authOptions);
   if (!session || !session.user.token) {
+    alert('Please login to see the session');
     redirect('/api/auth/login');
   }
-  // get booking sessions
-  const sessions = getSession(session.user.token);
 
   return (
     <main>
       <SideBar />
-      <SessionPanel sessionsJson={sessions} />
+      <SessionEdit token={session.user.token} session_id={params.id} />
     </main>
   );
 }

@@ -13,7 +13,6 @@ export default async function SessionPanel({
 
   const session = await getServerSession(authOptions);
   if (!session || !session.user.token) return null;
-  const profile = await getUserProfile(session.user.token);
 
   return (
     <div className="z-50 space-y-2 p-20 sm:ml-72">
