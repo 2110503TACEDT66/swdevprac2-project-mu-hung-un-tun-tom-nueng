@@ -2,15 +2,20 @@
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
+import getUserProfile from '@/libs/getUserProfile';
 
 export default function SessionItem({
   id,
   company,
+  user,
   date,
+  admin,
 }: {
   id: string;
   company: any;
+  user: any;
   date: Date;
+  admin: boolean;
 }) {
   const router = useRouter();
   const { data: session } = useSession();
@@ -40,11 +45,21 @@ export default function SessionItem({
     }
   };
 
+  console.log(company, user);
+
   return (
     <div className="flex h-[150px] w-full flex-col justify-between rounded-2xl p-5 shadow-lg">
       <div className="space-y-1">
         <div className="text-2xl font-bold">{company.name}</div>
-        <div>{date.toString()}</div>
+        {admin && (
+          <div className="flex flex-row font-semibold ">
+            UserId :<p className="px-1 font-normal">{user}</p>
+          </div>
+        )}
+
+        <div className="flex flex-row font-semibold">
+          Date :<p className="px-1 font-normal">{date.toString()}</p>
+        </div>
       </div>
       <div className="flex flex-row self-end">
         <div
